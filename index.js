@@ -647,10 +647,62 @@
 
 
 
+// const express = require('express');
+// const bodyParser = require('body-parser');
+// const cors = require('cors');
+// const sql = require('mssql');
+// import 'events';
+
+// const app = express();
+// app.use(bodyParser.json());
+// app.use(cors());
+
+// // Database configuration
+// const config = {
+//   user: 'Well1',
+//   password: 'well228608',
+//   server: 'sanghinstance.chasw9cgenor.ap-south-1.rds.amazonaws.com',
+//   port: 1857, // Add the port number here
+//   database: 'DevData1',
+//   options: {
+//     encrypt: true, // For Azure SQL Database
+//     trustServerCertificate: true, // Change this if you're using a self-signed certificate
+//   },
+// };
+
+
+// // Connect to the database
+// sql.connect(config)
+//   .then(() => {
+//     console.log('Connected to the database');
+//   })
+//   .catch((err) => {
+//     console.error('Database connection failed:', err);
+//   });
+
+// // Start the server
+// const PORT = process.env.PORT || 8090;
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
+
+// // Example endpoint: Get all items
+// app.get('/', async (req, res) => {
+//   try {
+//     const result = await sql.query('SELECT * FROM RoomMaster');
+//     res.json(result.recordset);
+//   } catch (err) {
+//     console.error('Error:', err);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
+
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const sql = require('mssql');
+require('events');
 
 const app = express();
 app.use(bodyParser.json());
@@ -669,7 +721,6 @@ const config = {
   },
 };
 
-
 // Connect to the database
 sql.connect(config)
   .then(() => {
@@ -686,7 +737,7 @@ app.listen(PORT, () => {
 });
 
 // Example endpoint: Get all items
-app.get('/api/items', async (req, res) => {
+app.get('/', async (req, res) => {
   try {
     const result = await sql.query('SELECT * FROM RoomMaster');
     res.json(result.recordset);
